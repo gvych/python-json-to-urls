@@ -1,21 +1,19 @@
 from rfc3986 import builder
 
 
-def to_urls( json ):
-    result = ''
-    for record in json:
-        print('start of processing of record')
-        if not ('disabled' in record and record['disabled']):
-            print('executing of convertions')
-            result += convert_record_to_url(record)
-            print('result=',result)
-    return result
+def to_url( record ):
+    if 'disabled' in record:
+        if record['disabled'] not in [True,False]:
+            raise KeyError
 
-
-def convert_record_to_url(record):
+        if record['disabled']:
+          return
 
     uri_builder = builder.URIBuilder().add_host(record['domain_name'])
+
     if 'scheme' in record:
+        if record['scheme'] not in ['http','https']:
+            raise KeyError
         uri_builder = uri_builder.add_scheme(record['scheme'])
     if 'username' in record:
         #TODO: check if password and username is alphanumeric only
@@ -32,11 +30,4 @@ def convert_record_to_url(record):
     if 'fragment' in record:
         uri_builder = uri_builder.add_fragment(record['fragment'])
        
-
-            
-#            print(uri_builder.finalize().unsplit())
-            #print(record)
     return uri_builder.finalize().unsplit()
-            
-
-
