@@ -1,5 +1,4 @@
 all:
-#	pip install -r requirements.txt
 	./main.py ./data.json
 
 setup:
