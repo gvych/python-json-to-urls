@@ -1,5 +1,5 @@
 # python-json-to-urls
-Example of python module for converting data from JSON format.
+Example of python module for converting data from JSON format into list of valid URLs.
 
   Execute "make setup" for creating virtualenv.
   
